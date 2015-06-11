@@ -1,0 +1,18 @@
+<belows.com.tangshi.widget.SlidingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:menu_id="@+id/sliding_menu"
+    app:content_id="@+id/sliding_content"
+    android:id="@+id/sl_layout">
+
+    <belows.com.tangshi.widget.SlidingMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/sliding_menu" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/sliding_content" />
+</belows.com.tangshi.widget.SlidingLayout>
