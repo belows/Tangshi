@@ -20,11 +20,11 @@ public class TangshiRepository extends BaseRepository<Poem, Integer> {
         return Poem.class;
     }
 
-    public long size(String pAuthor) {
+    public long size(String pKey, String pValue) {
         try {
-            QueryBuilder<Poem,Integer> _builder = mDao.queryBuilder();
-            Where<Poem,Integer> _where = _builder.where();
-            _where.eq("mAuthorName",pAuthor);
+            QueryBuilder<Poem, Integer> _builder = mDao.queryBuilder();
+            Where<Poem, Integer> _where = _builder.where();
+            _where.eq(pKey, pValue);
             _builder.setWhere(_where);
             return _builder.countOf();
         } catch (Exception e) {

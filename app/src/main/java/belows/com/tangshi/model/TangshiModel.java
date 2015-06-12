@@ -11,10 +11,14 @@ import com.yy.androidlib.util.notification.NotificationCenter;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
+import belows.com.tangshi.R;
 import belows.com.tangshi.callbacks.TangshiCallback;
+import belows.com.tangshi.domain.Category;
 import belows.com.tangshi.repository.AuthorRepository;
+import belows.com.tangshi.repository.CategoryRepository;
 import belows.com.tangshi.repository.TangshiRepository;
 import belows.com.tangshi.domain.AuthorInfo;
 import belows.com.tangshi.domain.Poem;
@@ -28,12 +32,14 @@ public class TangshiModel extends Model {
 
     private AuthorRepository mAuthorRepository;
     private TangshiRepository mTangshiRepository;
+    private CategoryRepository mCategoryRepository;
 
     private List<Poem> mPoemList;
 
     public void setConnectionSource(ConnectionSource pConnectionSource) {
         mAuthorRepository = new AuthorRepository(pConnectionSource);
         mTangshiRepository = new TangshiRepository(pConnectionSource);
+        mCategoryRepository = new CategoryRepository(pConnectionSource);
     }
 
     @Override
@@ -41,6 +47,7 @@ public class TangshiModel extends Model {
         super.init(pApp, pIoHandler);
         mAuthorRepository.init();
         mTangshiRepository.init();
+        mCategoryRepository.init();
         initData();
     }
 
@@ -50,7 +57,7 @@ public class TangshiModel extends Model {
             public void run() {
                 List<AuthorInfo> _infoList = mAuthorRepository.queryAll();
                 for (AuthorInfo _info : _infoList) {
-                    _info.worksCount = (int) mTangshiRepository.size(_info.name);
+                    _info.worksCount = (int) mTangshiRepository.size("mAuthorName", _info.name);
                 }
                 NotificationCenter.INSTANCE.getObserver(TangshiCallback.Author.class).onAuthorsAck(_infoList);
             }
@@ -64,6 +71,23 @@ public class TangshiModel extends Model {
         NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(mPoemList);
     }
 
+    public void queryCategory() {
+        runInIoHandler(new Runnable() {
+            @Override
+            public void run() {
+                List<Category> _categoryList = mCategoryRepository.queryAll();
+                if (_categoryList == null) {
+                    return;
+                } else {
+                    for (Category _category : _categoryList) {
+                        _category.mWorksCount = (int) mTangshiRepository.size("mCategory", _category.mCategory);
+                    }
+                    NotificationCenter.INSTANCE.getObserver(TangshiCallback.Category.class).onCategoryAck(_categoryList);
+                }
+            }
+        });
+    }
+
     private void initData() {
         boolean _database_inited = Preference.get(getApp(), Preference.CommonKey.TANGSHI_INITED, false);
         if (_database_inited) {
@@ -73,6 +97,7 @@ public class TangshiModel extends Model {
             runInIoHandler(new Runnable() {
                 @Override
                 public void run() {
+                    mCategoryRepository.save(getCategoryFromFile());
                     mPoemList = getTangshiFromFile();
                     mAuthorRepository.save(getAuthorFromFile());
                     mTangshiRepository.save(mPoemList);
@@ -81,6 +106,20 @@ public class TangshiModel extends Model {
                 }
             });
         }
+    }
+
+    private List<Category> getCategoryFromFile() {
+        List<Category> _categoryList = new ArrayList<Category>();
+        _categoryList.add(new Category(getString(R.string.wu_yan_gu_shi)));
+        _categoryList.add(new Category(getString(R.string.qi_yan_gu_shi)));
+        _categoryList.add(new Category(getString(R.string.wu_yan_jue_ju)));
+        _categoryList.add(new Category(getString(R.string.qi_yan_jue_ju)));
+        _categoryList.add(new Category(getString(R.string.wu_yan_yue_fu)));
+        _categoryList.add(new Category(getString(R.string.qi_yan_yue_fu)));
+        _categoryList.add(new Category(getString(R.string.wu_yan_lv_shi)));
+        _categoryList.add(new Category(getString(R.string.qi_yan_lv_shi)));
+        _categoryList.add(new Category(getString(R.string.qi_ta_tang_shi)));
+        return _categoryList;
     }
 
     private List<AuthorInfo> getAuthorFromFile() {

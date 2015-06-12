@@ -10,6 +10,7 @@ import com.yy.androidlib.util.logging.Logger;
 import belows.com.tangshi.R;
 import belows.com.tangshi.activity.fragment.MainFragment;
 import belows.com.tangshi.domain.MenuItem;
+import belows.com.tangshi.test.XmlParser;
 import belows.com.tangshi.widget.SlidingLayout;
 import belows.com.tangshi.widget.SlidingMenu;
 

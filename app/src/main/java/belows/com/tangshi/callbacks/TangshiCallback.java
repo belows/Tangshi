@@ -3,6 +3,7 @@ package belows.com.tangshi.callbacks;
 import java.util.List;
 
 import belows.com.tangshi.domain.AuthorInfo;
+import belows.com.tangshi.domain.Category;
 import belows.com.tangshi.domain.Poem;
 
 /**
@@ -15,5 +16,9 @@ public interface TangshiCallback {
 
     public interface Author {
         void onAuthorsAck(List<AuthorInfo> pInfoList);
+    }
+
+    public interface Category {
+        void onCategoryAck(List<belows.com.tangshi.domain.Category> pCategoryList);
     }
 }

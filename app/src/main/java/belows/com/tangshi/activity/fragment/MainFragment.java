@@ -39,10 +39,11 @@ public class MainFragment extends BaseFragment implements TangshiCallback.Tangsh
     @Override
     protected View customView(LayoutInflater pInflater) {
         mListView = (ListView) pInflater.inflate(R.layout.fragment_main, null);
+        initAdapter();
+
         AppModel.INSTANCE.tangshi().queryTangshi();
         setTitle(getString(R.string.tangshi));
 
-        initAdapter();
         return mListView;
     }
 

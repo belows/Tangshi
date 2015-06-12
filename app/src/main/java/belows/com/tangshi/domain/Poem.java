@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,15 +25,18 @@ public class Poem {
     @DatabaseField
     public String mAuthorName;
 
-//    @DatabaseField(dataType = DataType.SERIALIZABLE)
-    public List<Verse> mContentList;
+    @DatabaseField
+    public String mCategory;
 
-//    @DatabaseField(dataType = DataType.SERIALIZABLE)
-    public List<String> mCommentList;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    public ArrayList<Verse> mContentList;
 
-//    @DatabaseField(dataType = DataType.SERIALIZABLE)
-    public List<String> mRhymeList;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    public ArrayList<String> mCommentList;
 
-//    @DatabaseField(dataType = DataType.SERIALIZABLE)
-    public List<String> mAppreciationList;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    public ArrayList<String> mRhymeList;
+
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    public ArrayList<String> mAppreciationList;
 }

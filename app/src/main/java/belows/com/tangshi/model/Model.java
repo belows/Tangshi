@@ -31,4 +31,8 @@ public abstract class Model {
     public Handler getIoHandler() {
         return mIoHandler;
     }
+
+    public String getString(int pStrId, Object... pArgs) {
+        return mApplication.getString(pStrId, pArgs);
+    }
 }

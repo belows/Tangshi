@@ -119,13 +119,43 @@ public class XmlParser {
     public static List<Poem> parsePoems(Context pContext, List<Integer> pIdList)
             throws XmlPullParserException, IOException {
         List<Poem> _list = new ArrayList<Poem>();
-        for (long _id : pIdList) {
-            _list.addAll(parsePoem(pContext, _id));
+        for (int _id : pIdList) {
+            String _category = "";
+            switch (_id) {
+                case R.xml.qi_yan_gu_shi:
+                    _category = pContext.getString(R.string.qi_yan_gu_shi);
+                    break;
+                case R.xml.qi_yan_jue_ju:
+                    _category = pContext.getString(R.string.qi_yan_jue_ju);
+                    break;
+                case R.xml.qi_yan_lv_shi:
+                    _category = pContext.getString(R.string.qi_yan_lv_shi);
+                    break;
+                case R.xml.qi_yan_yue_fu:
+                    _category = pContext.getString(R.string.qi_yan_yue_fu);
+                    break;
+                case R.xml.qita_gushi:
+                    _category = pContext.getString(R.string.qi_ta_tang_shi);
+                    break;
+                case R.xml.wu_yan_gu_shi:
+                    _category = pContext.getString(R.string.wu_yan_gu_shi);
+                    break;
+                case R.xml.wu_yan_jue_ju:
+                    _category = pContext.getString(R.string.wu_yan_jue_ju);
+                    break;
+                case R.xml.wu_yan_lv_shi:
+                    _category = pContext.getString(R.string.wu_yan_lv_shi);
+                    break;
+                case R.xml.wu_yan_yue_fu:
+                    _category = pContext.getString(R.string.wu_yan_yue_fu);
+                    break;
+            }
+            _list.addAll(parsePoem(pContext, _id, _category));
         }
         return _list;
     }
 
-    public static List<Poem> parsePoem(Context pContext, long pId)
+    public static List<Poem> parsePoem(Context pContext, int pId, String pCategory)
             throws XmlPullParserException, IOException {
         ArrayList<Poem> _list = null;
         XmlResourceParser _parser = pContext.getResources().getXml((int) pId);
@@ -143,6 +173,7 @@ public class XmlParser {
                     String name = _parser.getName();
                     if (_parser.getName().equals("poetry")) {
                         _poem = new Poem();
+                        _poem.mCategory = pCategory;
                         cpPos = 0;
                     } else if (_parser.getName().equals("id")) {
                         _eventType = _parser.next();
