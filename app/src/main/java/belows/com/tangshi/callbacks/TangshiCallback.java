@@ -4,6 +4,7 @@ import java.util.List;
 
 import belows.com.tangshi.domain.AuthorInfo;
 import belows.com.tangshi.domain.Category;
+import belows.com.tangshi.domain.MingJu;
 import belows.com.tangshi.domain.Poem;
 
 /**
@@ -20,5 +21,9 @@ public interface TangshiCallback {
 
     public interface Category {
         void onCategoryAck(List<belows.com.tangshi.domain.Category> pCategoryList);
+    }
+
+    public interface IMingJu {
+        void onMingJuAck(List<MingJu> pMingJuList);
     }
 }

@@ -17,11 +17,16 @@ import java.util.List;
 import belows.com.tangshi.R;
 import belows.com.tangshi.callbacks.TangshiCallback;
 import belows.com.tangshi.domain.Category;
+import belows.com.tangshi.domain.MingJu;
 import belows.com.tangshi.repository.AuthorRepository;
 import belows.com.tangshi.repository.CategoryRepository;
+import belows.com.tangshi.repository.CollectionRepository;
+import belows.com.tangshi.repository.MingJuRepository;
+import belows.com.tangshi.repository.PlayListRepository;
 import belows.com.tangshi.repository.TangshiRepository;
 import belows.com.tangshi.domain.AuthorInfo;
 import belows.com.tangshi.domain.Poem;
+import belows.com.tangshi.utils.FileUtil;
 import belows.com.tangshi.utils.Preference;
 
 /**
@@ -33,6 +38,9 @@ public class TangshiModel extends Model {
     private AuthorRepository mAuthorRepository;
     private TangshiRepository mTangshiRepository;
     private CategoryRepository mCategoryRepository;
+    private CollectionRepository mCollectionRepository;
+    private MingJuRepository mMingJuRepository;
+    private PlayListRepository mPlayListRepository;
 
     private List<Poem> mPoemList;
 
@@ -40,6 +48,9 @@ public class TangshiModel extends Model {
         mAuthorRepository = new AuthorRepository(pConnectionSource);
         mTangshiRepository = new TangshiRepository(pConnectionSource);
         mCategoryRepository = new CategoryRepository(pConnectionSource);
+        mCollectionRepository = new CollectionRepository(pConnectionSource);
+        mMingJuRepository = new MingJuRepository(pConnectionSource);
+        mPlayListRepository = new PlayListRepository(pConnectionSource);
     }
 
     @Override
@@ -48,6 +59,9 @@ public class TangshiModel extends Model {
         mAuthorRepository.init();
         mTangshiRepository.init();
         mCategoryRepository.init();
+        mCollectionRepository.init();
+        mMingJuRepository.init();
+        mPlayListRepository.init();
         initData();
     }
 
@@ -88,6 +102,16 @@ public class TangshiModel extends Model {
         });
     }
 
+    public void queryMingJu() {
+        runInIoHandler(new Runnable() {
+            @Override
+            public void run() {
+                List<MingJu> _mingJuList = mMingJuRepository.queryAll();
+                NotificationCenter.INSTANCE.getObserver(TangshiCallback.IMingJu.class).onMingJuAck(_mingJuList);
+            }
+        });
+    }
+
     private void initData() {
         boolean _database_inited = Preference.get(getApp(), Preference.CommonKey.TANGSHI_INITED, false);
         if (_database_inited) {
@@ -97,6 +121,7 @@ public class TangshiModel extends Model {
             runInIoHandler(new Runnable() {
                 @Override
                 public void run() {
+                    mMingJuRepository.save(getMingJuFromFile());
                     mCategoryRepository.save(getCategoryFromFile());
                     mPoemList = getTangshiFromFile();
                     mAuthorRepository.save(getAuthorFromFile());
@@ -106,6 +131,19 @@ public class TangshiModel extends Model {
                 }
             });
         }
+    }
+
+    private List<MingJu> getMingJuFromFile() {
+        try {
+            String _result = "";
+            _result = FileUtil.readAssetFile("mingju.txt", "utf-8");
+            ObjectMapper _objectMapper = new ObjectMapper();
+            List<MingJu> _infoList = _objectMapper.readValue(_result, new TypeReference<List<MingJu>>() {
+            });
+            return _infoList;
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     private List<Category> getCategoryFromFile() {
@@ -124,15 +162,8 @@ public class TangshiModel extends Model {
 
     private List<AuthorInfo> getAuthorFromFile() {
         try {
-            InputStream _inputStream = getApp().getAssets().open("author.txt");
-            InputStreamReader _isr = new InputStreamReader(_inputStream, "gb2312");
-            BufferedReader _br = new BufferedReader(_isr);
-            String _line = "";
             String _result = "";
-            while ((_line = _br.readLine()) != null) {
-                _result += _line;
-            }
-
+            _result = FileUtil.readAssetFile("author.txt", "gb2312");
             ObjectMapper _objectMapper = new ObjectMapper();
             List<AuthorInfo> _infoList = _objectMapper.readValue(_result, new TypeReference<List<AuthorInfo>>() {
             });
@@ -144,37 +175,10 @@ public class TangshiModel extends Model {
 
     private List<Poem> getTangshiFromFile() {
         try {
-            InputStream _inputStream = getApp().getAssets().open("tangshi.txt");
-            InputStreamReader _isr = new InputStreamReader(_inputStream, "gb2312");
-            BufferedReader _br = new BufferedReader(_isr);
-            String _line = "";
             String _result = "";
-            while ((_line = _br.readLine()) != null) {
-                _result += _line;
-            }
-
+            _result = FileUtil.readAssetFile("tangshi.txt", "gb2312");
             ObjectMapper _objectMapper = new ObjectMapper();
             List<Poem> _infoList = _objectMapper.readValue(_result, new TypeReference<List<Poem>>() {
-            });
-            return _infoList;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-    private <T> List<T> getAssetsFromFile(String pFileName, final Class<T> pClass) {
-        try {
-            InputStream _inputStream = getApp().getAssets().open(pFileName);
-            InputStreamReader _isr = new InputStreamReader(_inputStream, "gb2312");
-            BufferedReader _br = new BufferedReader(_isr);
-            String _line = "";
-            String _result = "";
-            while ((_line = _br.readLine()) != null) {
-                _result += _line;
-            }
-
-            ObjectMapper _objectMapper = new ObjectMapper();
-            List<T> _infoList = _objectMapper.readValue(_result, new TypeReference<List<T>>() {
             });
             return _infoList;
         } catch (Exception e) {

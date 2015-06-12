@@ -20,7 +20,7 @@ import java.util.List;
 
 import belows.com.tangshi.R;
 import belows.com.tangshi.activity.fragment.CollectionFragment;
-import belows.com.tangshi.activity.fragment.LogionFragment;
+import belows.com.tangshi.activity.fragment.MingJuFragment;
 import belows.com.tangshi.activity.fragment.MainFragment;
 import belows.com.tangshi.activity.fragment.PlayListFragment;
 import belows.com.tangshi.activity.fragment.PoemCategoryFragment;
@@ -78,7 +78,7 @@ public class SlidingMenu extends LinearLayout {
         mItemList.add(new MenuItem(getString(R.string.home), R.drawable.icon_menu1, MainFragment.class));
         mItemList.add(new MenuItem(getString(R.string.poem_category), R.drawable.icon_menu1, PoemCategoryFragment.class));
         mItemList.add(new MenuItem(getString(R.string.poet), R.drawable.icon_menu1, PoetFragment.class));
-        mItemList.add(new MenuItem(getString(R.string.ming_ju), R.drawable.icon_menu1, LogionFragment.class));
+        mItemList.add(new MenuItem(getString(R.string.ming_ju), R.drawable.icon_menu1, MingJuFragment.class));
         mItemList.add(new MenuItem(getString(R.string.collection), R.drawable.icon_menu1, CollectionFragment.class));
         mItemList.add(new MenuItem(getString(R.string.play_list), R.drawable.icon_menu1, PlayListFragment.class));
         mItemList.add(new MenuItem(getString(R.string.setting), R.drawable.icon_menu1, SettingFragment.class));

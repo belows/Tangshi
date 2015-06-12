@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,17 +15,15 @@ import java.util.List;
 
 import belows.com.tangshi.R;
 import belows.com.tangshi.callbacks.TangshiCallback;
-import belows.com.tangshi.domain.AuthorInfo;
+import belows.com.tangshi.domain.MingJu;
 import belows.com.tangshi.model.AppModel;
 
 /**
  * Created by belows on 15/6/10.
  */
-public class PoetFragment extends BaseFragment implements TangshiCallback.Author {
-
+public class MingJuFragment extends BaseFragment implements TangshiCallback.IMingJu {
     private ListView mListView;
-
-    private BaseAdapter<AuthorInfo> mAdapter;
+    private BaseAdapter<MingJu> mAdapter;
 
     @Nullable
     @Override
@@ -33,30 +32,30 @@ public class PoetFragment extends BaseFragment implements TangshiCallback.Author
     }
 
     @Override
-    public void onAuthorsAck(List<AuthorInfo> pInfoList) {
-        mAdapter.setItems(pInfoList);
+    public void onMingJuAck(List<MingJu> pMingJuList) {
+        mAdapter.setItems(pMingJuList);
     }
 
     @Override
     protected View customView(LayoutInflater pInflater) {
-        mListView = (ListView)pInflater.inflate(R.layout.listview,null);
+        mListView = (ListView) pInflater.inflate(R.layout.listview, null);
         initAdapter();
-        AppModel.INSTANCE.tangshi().queryAuthor();
+        AppModel.INSTANCE.tangshi().queryMingJu();
 
-        setTitle(getString(R.string.poet_list));
+        setTitle(getString(R.string.ming_ju));
         return mListView;
     }
 
     private void initAdapter() {
-        mAdapter = new BaseAdapter<AuthorInfo>() {
+        mAdapter = new BaseAdapter<MingJu>() {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
+                MingJu _mingJu = getItem(position);
                 if (convertView == null) {
-                    convertView = new TextView(parent.getContext());
+                    convertView = (TextView) new TextView(parent.getContext());
                 }
                 TextView _textView = (TextView) convertView;
-                AuthorInfo _info = getItem(position);
-                _textView.setText(_info.name + _info.worksCount);
+                _textView.setText(_mingJu.mAuthor + " " + _mingJu.mPoemTitle + " " + _mingJu.mContent);
                 return _textView;
             }
         };

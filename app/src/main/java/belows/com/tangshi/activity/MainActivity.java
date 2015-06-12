@@ -11,6 +11,7 @@ import belows.com.tangshi.R;
 import belows.com.tangshi.activity.fragment.MainFragment;
 import belows.com.tangshi.domain.MenuItem;
 import belows.com.tangshi.test.XmlParser;
+import belows.com.tangshi.utils.FileUtil;
 import belows.com.tangshi.widget.SlidingLayout;
 import belows.com.tangshi.widget.SlidingMenu;
 
@@ -27,7 +28,6 @@ public class MainActivity extends FrameActivity implements SlidingMenu.OnMenuCli
         setContentView(R.layout.activity_main);
         initViews();
         initMainFragment();
-
     }
 
     private void initViews() {

@@ -1,6 +1,7 @@
 package belows.com.tangshi.model;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -55,6 +56,10 @@ public enum AppModel {
         initCallbacks();
         initModels();
         initLogging();
+    }
+
+    public Context context() {
+        return mApplication;
     }
 
     public boolean hasInit() {
