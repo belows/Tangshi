@@ -21,6 +21,7 @@ import belows.com.tangshi.widget.SlidingMenu;
 public class MainActivity extends FrameActivity implements SlidingMenu.OnMenuClickListener {
 
     private SlidingLayout mSlidingLayout;
+    private Class mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,10 @@ public class MainActivity extends FrameActivity implements SlidingMenu.OnMenuCli
     }
 
     private void replaceFragment(Class<?> pTargetFragment) {
+        if (mCurrentFragment != null && mCurrentFragment.getName().equals(pTargetFragment.getName())) {
+            return;
+        }
+        mCurrentFragment = pTargetFragment;
         try {
             FragmentManager _fm = getSupportFragmentManager();
             FragmentTransaction _ft = _fm.beginTransaction();
