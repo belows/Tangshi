@@ -65,6 +65,14 @@ public class TangshiModel extends Model {
         initData();
     }
 
+    public void queryPlayList() {
+
+    }
+
+    public void queryCollection() {
+
+    }
+
     public void queryAuthor() {
         runInIoHandler(new Runnable() {
             @Override

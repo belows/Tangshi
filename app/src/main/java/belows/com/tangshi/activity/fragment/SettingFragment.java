@@ -11,12 +11,13 @@ import belows.com.tangshi.R;
 /**
  * Created by belows on 15/6/10.
  */
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends FrameFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View _root = inflater.inflate(R.layout.fragment_setting, container, false);
+        View _root = super.onCreateView(inflater, container, savedInstanceState);
+
+        setTitle(getString(R.string.setting));
         return _root;
     }
 

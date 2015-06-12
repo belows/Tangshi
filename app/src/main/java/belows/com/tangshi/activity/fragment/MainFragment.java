@@ -5,10 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.yy.androidlib.util.sdk.BaseAdapter;
 
 import java.util.List;
 
@@ -20,15 +17,16 @@ import belows.com.tangshi.domain.Poem;
 /**
  * Created by belows on 15/6/10.
  */
-public class MainFragment extends BaseFragment implements TangshiCallback.Tangshi {
-
-    private ListView mListView;
-    private BaseAdapter<Poem> mAdapter;
+public class MainFragment extends FrameFragment<Poem> implements TangshiCallback.Tangshi {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View _root = super.onCreateView(inflater, container, savedInstanceState);
+        AppModel.INSTANCE.tangshi().queryTangshi();
+
+        setTitle(getString(R.string.tangshi));
+        return _root;
     }
 
     @Override
@@ -37,29 +35,12 @@ public class MainFragment extends BaseFragment implements TangshiCallback.Tangsh
     }
 
     @Override
-    protected View customView(LayoutInflater pInflater) {
-        mListView = (ListView) pInflater.inflate(R.layout.fragment_main, null);
-        initAdapter();
-
-        AppModel.INSTANCE.tangshi().queryTangshi();
-        setTitle(getString(R.string.tangshi));
-
-        return mListView;
-    }
-
-    private void initAdapter() {
-        mAdapter = new BaseAdapter<Poem>() {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if (convertView == null) {
-                    convertView = new TextView(parent.getContext());
-                }
-                Poem _poem = getItem(position);
-                TextView _textView = (TextView) convertView;
-                _textView.setText(_poem.mAuthorName + _poem.mTitle.mContent);
-                return _textView;
-            }
-        };
-        mListView.setAdapter(mAdapter);
+    protected View customListItemView(Poem item, int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = new TextView(parent.getContext());
+        }
+        TextView _textView = (TextView) convertView;
+        _textView.setText(item.mAuthorName + item.mTitle.mContent);
+        return _textView;
     }
 }
