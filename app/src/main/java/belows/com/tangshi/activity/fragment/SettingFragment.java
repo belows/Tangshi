@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import belows.com.tangshi.R;
 
@@ -23,6 +24,6 @@ public class SettingFragment extends FrameFragment {
 
     @Override
     protected View customView(LayoutInflater pInflater) {
-        return null;
+        return new TextView(getActivity());
     }
 }
