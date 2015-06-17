@@ -18,6 +18,7 @@ import belows.com.tangshi.R;
 import belows.com.tangshi.callbacks.TangshiCallback;
 import belows.com.tangshi.domain.Category;
 import belows.com.tangshi.domain.MingJu;
+import belows.com.tangshi.domain.Verse;
 import belows.com.tangshi.repository.AuthorRepository;
 import belows.com.tangshi.repository.CategoryRepository;
 import belows.com.tangshi.repository.CollectionRepository;
@@ -93,6 +94,11 @@ public class TangshiModel extends Model {
 
     public void queryCategoryTangshi(String pCategory) {
         List<Poem> _poemList = mTangshiRepository.queryCategory(pCategory);
+        NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
+    }
+
+    public void queryTangshi(Verse pName, String pAuthor) {
+        List<Poem> _poemList = mTangshiRepository.query(pName, pAuthor);
         NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
     }
 

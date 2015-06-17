@@ -1,15 +1,19 @@
 package belows.com.tangshi.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import belows.com.tangshi.R;
+import belows.com.tangshi.activity.PoemActivity;
 import belows.com.tangshi.callbacks.TangshiCallback;
 import belows.com.tangshi.domain.Poem;
 import belows.com.tangshi.domain.PoemQueryType;
@@ -40,6 +44,15 @@ public class PoemListFragment extends FrameFragment<Poem> implements TangshiCall
             setTitle(_category);
         }
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Poem _poem = mAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), PoemActivity.class);
+                intent.putExtra(PoemActivity.POEM, _poem);
+                startActivity(intent);
+            }
+        });
         return _root;
     }
 
@@ -50,11 +63,27 @@ public class PoemListFragment extends FrameFragment<Poem> implements TangshiCall
 
     @Override
     protected View customListItemView(Poem item, int position, View convertView, ViewGroup parent) {
+        ViewHolder _holder = null;
         if (convertView == null) {
-            convertView = new TextView(parent.getContext());
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_poem, null);
+            _holder = new ViewHolder();
+            _holder.mTitleTextView = (TextView) convertView.findViewById(R.id.tv_title);
+            _holder.mAuthorTextView = (TextView) convertView.findViewById(R.id.tv_author);
+            _holder.mCollectionImageView = (ImageView) convertView.findViewById(R.id.iv_collection);
+            _holder.mMoreTextView = (TextView) convertView.findViewById(R.id.tv_more);
+            convertView.setTag(_holder);
+        } else {
+            _holder = (ViewHolder) convertView.getTag();
         }
-        TextView _textView = (TextView) convertView;
-        _textView.setText(item.mAuthorName + item.mTitle.mContent);
-        return _textView;
+        _holder.mTitleTextView.setText(item.mTitle.mContent);
+        _holder.mAuthorTextView.setText(item.mAuthorName);
+        return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView mTitleTextView;
+        ImageView mCollectionImageView;
+        TextView mAuthorTextView;
+        TextView mMoreTextView;
     }
 }

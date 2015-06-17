@@ -61,4 +61,6 @@ public abstract class FrameFragment<T> extends BaseFragment {
     protected View customListItemView(T item, int position, View convertView, ViewGroup parent) {
         return null;
     }
+
+
 }

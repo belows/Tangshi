@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by belows on 15/6/11.
  */
 @DatabaseTable
-public class Poem {
+public class Poem implements Serializable {
 
     @DatabaseField(id = true, index = true)
     public int mId;
