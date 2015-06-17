@@ -3,6 +3,10 @@ package belows.com.tangshi.repository;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
+import com.yy.androidlib.util.logging.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import belows.com.tangshi.domain.Poem;
 
@@ -29,6 +33,32 @@ public class TangshiRepository extends BaseRepository<Poem, Integer> {
             return _builder.countOf();
         } catch (Exception e) {
             return 0;
+        }
+    }
+
+    public List<Poem> queryAuthor(String pAuthor) {
+        try {
+            QueryBuilder<Poem, Integer> _builder = mDao.queryBuilder();
+            Where<Poem, Integer> _where = _builder.where();
+            _where.eq("mAuthorName", pAuthor);
+            _builder.setWhere(_where);
+            return _builder.query();
+        } catch (Exception e) {
+            Logger.error("author tangshi query error:", e.toString());
+            return new ArrayList<Poem>();
+        }
+    }
+
+    public List<Poem> queryCategory(String pCategory) {
+        try {
+            QueryBuilder<Poem, Integer> _builder = mDao.queryBuilder();
+            Where<Poem, Integer> _where = _builder.where();
+            _where.eq("mCategory", pCategory);
+            _builder.setWhere(_where);
+            return _builder.query();
+        } catch (Exception e) {
+            Logger.error("category tangshi query error:", e.toString());
+            return new ArrayList<Poem>();
         }
     }
 }

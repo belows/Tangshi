@@ -86,6 +86,16 @@ public class TangshiModel extends Model {
         });
     }
 
+    public void queryAuthorTangshi(String pAuthor) {
+        List<Poem> _poemList = mTangshiRepository.queryAuthor(pAuthor);
+        NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
+    }
+
+    public void queryCategoryTangshi(String pCategory) {
+        List<Poem> _poemList = mTangshiRepository.queryCategory(pCategory);
+        NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
+    }
+
     public void queryTangshi() {
         if (mPoemList == null || mPoemList.size() == 0) {
             mPoemList = mTangshiRepository.queryAll();
