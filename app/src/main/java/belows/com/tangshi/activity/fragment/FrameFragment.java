@@ -1,5 +1,6 @@
 package belows.com.tangshi.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -61,6 +62,4 @@ public abstract class FrameFragment<T> extends BaseFragment {
     protected View customListItemView(T item, int position, View convertView, ViewGroup parent) {
         return null;
     }
-
-
 }

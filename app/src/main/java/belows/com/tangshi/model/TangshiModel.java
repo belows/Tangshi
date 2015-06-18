@@ -44,6 +44,7 @@ public class TangshiModel extends Model {
     private PlayListRepository mPlayListRepository;
 
     private List<Poem> mPoemList;
+    private List<Poem> mShowingPoemList;
 
     public void setConnectionSource(ConnectionSource pConnectionSource) {
         mAuthorRepository = new AuthorRepository(pConnectionSource);
@@ -134,6 +135,14 @@ public class TangshiModel extends Model {
                 NotificationCenter.INSTANCE.getObserver(TangshiCallback.IMingJu.class).onMingJuAck(_mingJuList);
             }
         });
+    }
+
+    public void setShowingPoemList(List<Poem> pPoemList) {
+        mShowingPoemList = pPoemList;
+    }
+
+    public List<Poem> getShowingPoemList() {
+        return mShowingPoemList;
     }
 
     private void initData() {

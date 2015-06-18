@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <belows.com.tangshi.widget.VerseView
+        style="@style/PoemTitleStyle"
+        android:id="@+id/vv_title" />
+
+    <belows.com.tangshi.widget.VerseView
+        style="@style/PoemAuthorStyle"
+        android:id="@+id/vv_author" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color" />
+
+    <belows.com.tangshi.widget.ExplainView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ev_1" />
+
+    <belows.com.tangshi.widget.ExplainView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ev_2" />
+
+    <belows.com.tangshi.widget.ExplainView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ev_3" />
+</LinearLayout>

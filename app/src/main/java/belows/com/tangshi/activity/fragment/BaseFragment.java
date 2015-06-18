@@ -1,5 +1,6 @@
 package belows.com.tangshi.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,7 @@ import com.yy.androidlib.util.notification.NotificationCenter;
 /**
  * Created by belows on 15/6/12.
  */
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,5 +25,10 @@ public class BaseFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         NotificationCenter.INSTANCE.removeObserver(this);
+    }
+
+    public void startActivity(Class<?> pClass) {
+        Intent _intent = new Intent(getActivity(), pClass);
+        getActivity().startActivity(_intent);
     }
 }

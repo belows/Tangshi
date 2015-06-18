@@ -24,4 +24,7 @@
     <string name="wu_yan_lv_shi">五言律诗</string>
     <string name="qi_yan_lv_shi">七言律诗</string>
     <string name="qi_ta_tang_shi">其他唐诗</string>
+    <!--<string name="">注解</string>-->
+    <!--<string name="">韵译</string>-->
+    <!--<string name="">评析</string>-->
 </resources>

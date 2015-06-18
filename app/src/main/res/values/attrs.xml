@@ -3,6 +3,12 @@
     <declare-styleable name="SlidingLayout">
         <attr name="menu_id" format="reference" />
         <attr name="content_id" format="reference" />
-        <attr name="sliding_width" format="dimension"/>
+        <attr name="sliding_width" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="VerseView">
+        <attr name="content_text_size" format="dimension" />
+        <attr name="pinyin_text_size" format="dimension" />
+        <attr name="content_text_color" format="color" />
+        <attr name="pinyin_text_color" format="color" />
     </declare-styleable>
 </resources>
