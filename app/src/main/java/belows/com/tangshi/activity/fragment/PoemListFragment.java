@@ -47,7 +47,9 @@ public class PoemListFragment extends FrameFragment<Poem> implements TangshiCall
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(PoemActivity.class);
+                Intent _intent = new Intent(getActivity(),PoemActivity.class);
+                _intent.putExtra(PoemActivity.CURRENT_ITEM,position);
+                startActivity(_intent);
             }
         });
         return _root;

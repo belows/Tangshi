@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import belows.com.tangshi.R;
 import belows.com.tangshi.domain.Poem;
@@ -12,7 +13,7 @@ import belows.com.tangshi.domain.Verse;
 /**
  * Created by belows on 15/6/18.
  */
-public class PoemView extends LinearLayout {
+public class PoemView extends ScrollView {
 
     private VerseView mTitleView;
     private VerseView mAuthorView;
@@ -36,6 +37,9 @@ public class PoemView extends LinearLayout {
     }
 
     public void update(Poem pPoem) {
+        if (mPoem == pPoem) {
+            return;
+        }
         mPoem = pPoem;
         mTitleView.update(pPoem.mTitle);
         mAuthorView.update(pPoem.mAuthor);
@@ -44,9 +48,9 @@ public class PoemView extends LinearLayout {
             _verseView.update(_content);
             mContentView.addView(_verseView);
         }
-        mExplainView1.update("注解", pPoem.mAppreciationList);
+        mExplainView1.update("注解", pPoem.mCommentList);
         mExplainView2.update("韵译", pPoem.mRhymeList);
-        mExplainView3.update("评析", pPoem.mCommentList);
+        mExplainView3.update("评析", pPoem.mAppreciationList);
     }
 
     private void initViews() {
