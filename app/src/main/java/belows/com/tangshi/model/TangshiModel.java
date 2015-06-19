@@ -98,9 +98,13 @@ public class TangshiModel extends Model {
         NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
     }
 
-    public void queryTangshi(Verse pName, String pAuthor) {
+    public void queryTangshi(String pName, String pAuthor) {
         List<Poem> _poemList = mTangshiRepository.query(pName, pAuthor);
-        NotificationCenter.INSTANCE.getObserver(TangshiCallback.Tangshi.class).onTangshiAck(_poemList);
+        setShowingPoemList(_poemList);
+    }
+
+    public void queryMingJuTangshi(String pMingJu) {
+        List<Poem> _poemList = mTangshiRepository.queryCategory(pMingJu);
     }
 
     public void queryTangshi() {

@@ -219,6 +219,7 @@ public class XmlParser {
                         switch (pos) {
                             case 1:
                                 _poem.mTitle.mContent = _parser.getText();
+                                _poem.mTitleName = _poem.mTitle.mContent;
                                 break;
                             case 2:
                                 _poem.mAuthor.mContent = _parser.getText();

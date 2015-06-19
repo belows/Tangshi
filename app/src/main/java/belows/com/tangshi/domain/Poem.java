@@ -20,6 +20,9 @@ public class Poem implements Serializable {
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     public Verse mTitle;
 
+    @DatabaseField
+    public String mTitleName;
+
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     public Verse mAuthor;
 

@@ -63,11 +63,11 @@ public class TangshiRepository extends BaseRepository<Poem, Integer> {
         }
     }
 
-    public List<Poem> query(Verse pName, String pAuthor) {
+    public List<Poem> query(String pName, String pAuthor) {
         try {
             QueryBuilder<Poem, Integer> _builder = mDao.queryBuilder();
             Where<Poem, Integer> _where = _builder.where();
-            _where.eq("mTitle", pName);
+            _where.eq("mTitleName", pName);
             _where.and();
             _where.eq("mAuthorName", pAuthor);
             _builder.setWhere(_where);
